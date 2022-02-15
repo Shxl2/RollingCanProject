@@ -14,8 +14,7 @@ while video.isOpened():
         frameGray = cv2.cvtColor(frameGray, cv2.COLOR_BGR2GRAY)
 
         rows = frameGray.shape[0]
-        circles = cv2.HoughCircles(frameGray, cv2.HOUGH_GRADIENT, 1, rows / 8, param1=70,
-                                   param2=17, minRadius=80, maxRadius=90)
+        circles = cv2.HoughCircles(frameGray, cv2.HOUGH_GRADIENT, 1, 100000000, param1 = 150, param2 = 15, minRadius = 80, maxRadius =90)
 
         if circles is not None:
             counter += 1
@@ -23,14 +22,14 @@ while video.isOpened():
             for i in circles[0, :]:
                 center = (i[0], i[1])
                 # circle center
-                cv2.circle(frameGray, center, 1, (0, 100, 100), 3)
+                cv2.circle(frameOut, center, 1, (0, 100, 100), 3)
                 # circle outline
                 radius = i[2]
-                cv2.circle(frameGray, center, radius, (255, 0, 255), 3)
+                cv2.circle(frameOut, center, radius, (255, 0, 255), 3)
 
-        frameOut = cv2.putText(frameGray, "{} frames detected".format(counter), (400, 300), cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 0), 2, cv2.LINE_AA)
+        frameOut = cv2.putText(frameOut, "{} frames detected".format(counter), (600, 300), cv2.FONT_HERSHEY_SCRIPT_COMPLEX, 3, (0, 0, 0), 2, cv2.LINE_AA)
 
-        cv2.imshow('Frame', frameGray)
+        cv2.imshow('Frame', frameOut)
 
         if cv2.waitKey(25) & 0xFF == ord('q'):
             break
