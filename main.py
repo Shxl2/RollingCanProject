@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 video = cv2.VideoCapture("RollingCan.mov")
+result = cv2.VideoWriter('output.mp4', cv2.VideoWriter_fourcc(*"mp4v"), 60, (640, 480))
 detectedFrames = 0
 totalFrames = 0
 
@@ -10,6 +11,10 @@ if not video.isOpened():
 while video.isOpened():
     ret, frameOut = video.read()
     totalFrames = int(video.get(cv2.CAP_PROP_FRAME_COUNT))
+    frame_width = int(video.get(3))
+    frame_height = int(video.get(4))
+
+    size = (frame_width, frame_height)
 
     if ret:
 
@@ -30,8 +35,6 @@ while video.isOpened():
                 radius = i[2]
                 cv2.circle(frameOut, center, radius, (255, 0, 255), 3)
 
-
-
         frameOut = cv2.putText(frameOut, "{}/{} frames detected".format(detectedFrames, totalFrames), (600, 300), cv2.FONT_HERSHEY_SCRIPT_COMPLEX, 3, (0, 0, 0), 2, cv2.LINE_AA)
 
         ret, frameIn = video.read()
@@ -40,14 +43,17 @@ while video.isOpened():
         except ValueError:
             break
 
+        result.write(Hori)
         cv2.imshow("Hi", Hori)
 
-        if cv2.waitKey(25) & 0xFF == ord('q'):
+        if cv2.waitKey(10) & 0xFF == ord('q'):
             break
 
     else:
         break
 
 video.release()
+
+result.release()
 
 cv2.destroyAllWindows()
