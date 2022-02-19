@@ -8,11 +8,11 @@ if not video.isOpened():
     print("Error opening video  file")
 
 while video.isOpened():
-    ret, frameOut = video.read()
-    ret, frameIn = video.read()
+    ret1, frameOut = video.read()
+    ret2, frameIn = video.read()
     totalFrames = int(video.get(cv2.CAP_PROP_FRAME_COUNT))
 
-    if ret:
+    if 1 and ret2:
         frameGray = cv2.medianBlur(frameOut, 5)
         frameGray = cv2.cvtColor(frameGray, cv2.COLOR_BGR2GRAY)
 
