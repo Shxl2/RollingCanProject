@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 video = cv2.VideoCapture("RollingCan.mov")
-result = cv2.VideoWriter('output.mp4', cv2.VideoWriter_fourcc(*"mp4v"), 20.0, (3840, 1080))
+result = cv2.VideoWriter('Output.mp4', cv2.VideoWriter_fourcc(*"mp4v"), 20.0, (3840, 1080))
 detectedFrames = 0
 
 if not video.isOpened():
